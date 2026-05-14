@@ -10,7 +10,7 @@
 
   <!-- Bootstrap Icons -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="home.css">
+  <link rel="stylesheet" href="css/home.css">
 
   <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -34,7 +34,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             <i class="fa-solid fa-bars menu-icon"></i>
 
             <div class="logo-section">
-                <img src="finallogo.png">
+                <img src="image/finallogo.png">
 
               
             </div>
@@ -50,14 +50,18 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 
 
+
+  <!-- MAIN -->
+
   <div class="main-content">
 
       <section class="welcome-card">
 
             <div>
                 <h4>Welcome back,</h4>
-                <h1>Micheal Edison 👋</h1>
-                <p>Class 12 - A • Student ID: ST1023</p>
+                <h1>Micheal Edison </h1>
+                <p>Class 12 - A  </p>
+                <p>Student ID: ST1023</p>
             </div>
 
             <div class="date-box">
@@ -77,16 +81,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         </div>
         <h6>Total Students</h6>
         <h3>1,248</h3>
-        <div class="growth">+32 this month</div>
+        <div class="growth">+6% this year</div>
       </div>
 
       <div class="stat-card">
         <div class="icon-box green">
           <i class="bi bi-cash-stack"></i>
         </div>
-        <h6>Fees Collection</h6>
-        <h3>₹8,45,000</h3>
-        <div class="growth">+12% this month</div>
+        <h6>Total Staff</h6>
+        <h3>60 +</h3>
+        <div class="growth">+6 this year</div>
       </div>
 
       <div class="stat-card">
@@ -221,40 +225,55 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
     </div>
 
-    <!-- PERFORMANCE -->
+<br>
+    
 
-    <div class="performance-grid">
+<div class="card attendance-card" id="attendance">
 
-      <div class="small-card">
+  <div class="card-header">
+    <h2>My Attendance</h2>
+    <span class="icon">↗️</span>
+  </div>
 
-        <h5>My Attendance</h5>
+  <div class="circle-wrap">
 
-        <div class="attendance-circle">
-          <h2>92%</h2>
-          <small>Present</small>
-        </div>
+    <!-- UPDATED -->
+    <div class="circle" id="progressCircle">
 
-      </div>
-
-      <div class="small-card">
-
-        <h5>Academic Performance</h5>
-
-        <div class="chart-placeholder">
-          Performance Chart
-        </div>
-
-      </div>
-
-      <div class="small-card quote-card">
-
-        <h5>
-          “Education is the most powerful weapon which you can use to change the world.”
-        </h5>
-
+      <div class="circle-content">
+        <h1>92%</h1>
+        <p>Present</p>
       </div>
 
     </div>
+
+  </div>
+
+  <div class="attendance-list">
+
+    <div class="item">
+      <span><span class="dot blue"></span> Total Days</span>
+      <strong>120</strong>
+    </div>
+
+    <div class="item">
+      <span><span class="dot green"></span> Present</span>
+      <strong class="green-text">110</strong>
+    </div>
+
+    <div class="item">
+      <span><span class="dot red"></span> Absent</span>
+      <strong class="red-text">10</strong>
+    </div>
+
+  </div>
+
+  <button class="success-btn">
+    Great! Keep it up.
+  </button>
+
+</div>
+  
 
     <!-- QUICK ACTIONS -->
 
@@ -310,7 +329,43 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
   </div>
 
+<script>
 
+const attendanceSection = document.getElementById("attendance");
+const progressCircle = document.getElementById("progressCircle");
+
+let animated = false;
+
+window.addEventListener("scroll", () => {
+
+  const sectionTop = attendanceSection.getBoundingClientRect().top;
+  const screenHeight = window.innerHeight;
+
+  if(sectionTop < screenHeight - 100 && !animated){
+
+    animated = true;
+
+    let progress = 0;
+
+    const target = 331; // 92% of 360deg
+
+    const interval = setInterval(() => {
+
+      progress += 4;
+
+      progressCircle.style.setProperty("--progress", progress);
+
+      if(progress >= target){
+        clearInterval(interval);
+      }
+
+    }, 10);
+
+  }
+
+});
+
+</script>
 
 </body>
 </html>
