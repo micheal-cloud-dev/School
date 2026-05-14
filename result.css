@@ -19,6 +19,7 @@ body{
   
 }
 
+
 .top-header{
     background:rgb(65, 208, 65);
     padding:20px;
@@ -287,7 +288,29 @@ body{
     color:#06b6d4;
 }
 
+.progress{
+    width:100%;
+    height:10px;
+    background:#edf1f7;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.progress-bar{
+    width:0;
+    height:100%;
+    border-radius:20px;
+
+    transition:width 2s ease;
+}
+
 /* Performance */
+
+.counter {
+    font-size: 52px;
+    font-weight: 700;
+    transition: 0.3s;
+}
 
 .performance-box{
     display:flex;
