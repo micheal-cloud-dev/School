@@ -13,10 +13,11 @@ body{
 
 /* Header */
 
+
 .top-header{
-    background:#071a6b;
+    background:rgb(65, 208, 65);
     padding:20px;
-    color:white;
+    color:black;
     border-bottom-left-radius:25px;
     border-bottom-right-radius:25px;
 }
@@ -33,17 +34,16 @@ body{
     gap:10px;
 }
 
-.logo-section img{
-    width:45px;
-}
 
 .logo-section h2{
     font-size:20px;
+    align-items: center;
 }
 
 .logo-section p{
     font-size:12px;
     opacity:0.8;
+    align-items: center;
 }
 
 .menu-icon{
@@ -67,6 +67,44 @@ body{
     object-fit:cover;
 }
 
+ 
+
+   
+.menu-icon{
+    font-size:22px;
+}
+
+.header-icons{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.notification{
+    position:relative;
+}
+
+.notification span{
+    position:absolute;
+    top:-8px;
+    right:-8px;
+    background:red;
+    color:white;
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    font-size:11px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.profile-img{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    object-fit:cover;
+} 
 /* Main */
 
 .main-content{
@@ -364,7 +402,7 @@ body{
 }
 
 .nav-item.active{
-    color:#2563eb;
+    color:rgb(65, 208, 65);
 }
 
 /* Responsive */
@@ -428,10 +466,10 @@ body{
 }
 
 .nav-item.active{
-    color:#2563eb;
+    color:rgb(65, 208, 65);
 }
 
 .nav-item:hover{
-    color:#2563eb;
+    color:rgb(65, 208, 65);
 }
 }
