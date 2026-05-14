@@ -10,7 +10,66 @@
       padding-bottom:100px;
     }
 
-    /* HEADER */
+
+    /* Header */
+
+
+.top-header{
+    background:rgb(65, 208, 65);
+    padding:10px;
+    color:black;
+    border-bottom-left-radius:25px;
+    border-bottom-right-radius:25px;
+}
+
+.header-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo-section{
+    display:flex;
+    align-items:center;
+}
+
+.logo-section img{
+    width:120px;
+   
+}
+
+.logo-section h2{
+    font-size:20px;
+}
+
+.logo-section p{
+    font-size:12px;
+    opacity:0.8;
+}
+
+.menu-icon{
+    font-size:22px;
+}
+
+.header-icons{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.header-icons i{
+    font-size:22px;
+}
+
+.profile-img{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    object-fit:cover;
+}
+
+/* 
+    
 
     .top-header{
       background:#06145f;
@@ -53,64 +112,90 @@
       display:flex;
       align-items:center;
       gap:15px;
-    }
+    }*/
 
-    .notification{
-      position:relative;
-      font-size:24px;
-    }
+ 
+.menu-icon{
+    font-size:22px;
+}
 
-    .notification span{
-      position:absolute;
-      top:0;
-      right:0;
-      width:10px;
-      height:10px;
-      background:red;
-      border-radius:50%;
-    }
+.header-icons{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
 
-    .profile-img{
-      width:50px;
-      height:50px;
-      border-radius:50%;
-      object-fit:cover;
-      border:2px solid white;
-    }
+.notification{
+    position:relative;
+}
+
+.notification span{
+    position:absolute;
+    top:-8px;
+    right:-8px;
+    background:red;
+    color:white;
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    font-size:11px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.profile-img{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    object-fit:cover;
+} 
 
     /* WELCOME SECTION */
+.main-content{
+    padding:18px;
+}
 
-    .welcome-box{
-      margin-top:20px;
-    }
+.welcome-card{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:10px;
+    margin-bottom:20px;
+}
 
-    .welcome-box h2{
-      font-size:30px;
-      font-weight:700;
-    }
+.welcome-card h1{
+    font-size:30px;
+    font-weight:700;
+}
 
-    .welcome-box p{
-      opacity:0.8;
-      margin-top:5px;
-    }
+.welcome-card p{
+    color:#6b7280;
+    margin-top:5px;
+}
 
-    .date-box{
-      margin-top:15px;
-      background:white;
-      color:#06145f;
-      padding:10px 15px;
-      border-radius:12px;
-      display:inline-flex;
-      align-items:center;
-      gap:10px;
-      font-weight:600;
-    }
+.date-box{
+    background:white;
+    padding:12px 15px;
+    border-radius:15px;
+    font-size:13px;
+    color:#2563eb;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-weight:500;
+}
 
-    /* MAIN CONTENT */
+.card{
+    background:white;
+    padding:18px;
+    border-radius:20px;
+    margin-bottom:18px;
+}
 
-    .main-content{
-      padding:18px;
-    }
+.card h3{
+    margin-bottom:18px;
+}
 
     /* STAT CARDS */
 
@@ -396,7 +481,7 @@
     }
 
     .active-nav{
-      color:#2563eb;
+      color:rgb(65, 208, 65);
       font-weight:700;
     }
 
@@ -451,11 +536,73 @@
 }
 
 .nav-item.active{
-    color:#2563eb;
+    color:rgb(65, 208, 65);
 }
 
 .nav-item:hover{
-    color:#2563eb;
+    color:rgb(65, 208, 65);
+}
+
+/* Bottom Navigation */
+
+.bottom-nav{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 75px;
+    background: #ffffff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    box-shadow: 0 -2px 15px rgba(0,0,0,0.08);
+    z-index: 1000;
+    padding-bottom: 5px;
+}
+
+/* Navigation Item */
+
+.nav-item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-decoration: none !important;
+    -webkit-text-decoration: none !important;
+
+    color: #777;
+    font-size: 13px;
+    font-weight: 500;
+    gap: 5px;
+
+    flex: 1;
+}
+
+/* Remove underline */
+
+.nav-item span{
+    text-decoration: none !important;
+}
+
+/* Icons */
+
+.nav-item i{
+    font-size: 22px;
+}
+
+/* Active Menu */
+
+.nav-item.active{
+    color:rgb(65, 208, 65);
+}
+
+/* Hover */
+
+.nav-item:hover{
+    color: rgb(65, 208, 65);
 }
 
     }
