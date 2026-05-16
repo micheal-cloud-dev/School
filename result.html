@@ -442,7 +442,58 @@ counters.forEach(counter => {
 });
 
 
-</script>
+// ── Backend Integration ──────────────────
+const _apiBase = "https://mykingdom-backend.onrender.com/api";
 
-</body>
-</html>
+async function loadResults() {
+  const token = localStorage.getItem("token");
+  if (!token) { window.location.href = "login.html"; return; }
+
+  try {
+    const res = await fetch(`${_apiBase}/results/my/ST1023`, {
+      headers: { "Authorization": `Bearer ${token}` }
+    });
+    const data = await res.json();
+
+    if (data.success && data.data && data.data.length > 0) {
+      const results = data.data;
+
+      // Update subject rows
+      const subjectRows = document.querySelectorAll(".subject-row");
+      results.forEach((r, i) => {
+        if (subjectRows[i]) {
+          subjectRows[i].querySelector("h4").textContent = r.subject;
+          subjectRows[i].querySelector("p").textContent = `${r.marksObtained} / ${r.maxMarks}`;
+          const pct = Math.round((r.marksObtained / r.maxMarks) * 100);
+          subjectRows[i].querySelector(".progress-bar").setAttribute("data-width", pct + "%");
+          subjectRows[i].querySelector(".percentage").textContent = pct + "%";
+        }
+      });
+
+      // Calculate totals
+      const totalObtained = results.reduce((sum, r) => sum + Number(r.marksObtained), 0);
+      const totalMax = results.reduce((sum, r) => sum + r.maxMarks, 0);
+      const percentage = ((totalObtained / totalMax) * 100).toFixed(2);
+
+      document.querySelector(".counter[data-target='512']").textContent = totalObtained;
+      document.querySelectorAll(".circle-inner h2, .overview-box h2").forEach(el => {
+        if (el.textContent.includes("%")) el.textContent = percentage + "%";
+      });
+
+      const highestMarks = Math.max(...results.map(r => Number(r.marksObtained)));
+      const lowestMarks = Math.min(...results.map(r => Number(r.marksObtained)));
+      const avgMarks = (totalObtained / results.length).toFixed(2);
+
+      const summaryBoxes = document.querySelectorAll(".summary-box h2");
+      if (summaryBoxes.length >= 3) {
+        summaryBoxes[0].textContent = highestMarks;
+        summaryBoxes[1].textContent = lowestMarks;
+        summaryBoxes[2].textContent = avgMarks;
+      }
+    }
+  } catch (e) {
+    console.log("Using static data");
+  }
+}
+
+loadResults();
