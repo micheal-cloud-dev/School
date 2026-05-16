@@ -288,5 +288,99 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 </div>
 
+<script src="api.js"></script>
+<script>
+
+// ── Auth Check ──────────────────────────
+checkAuth();
+
+// ── Load Fee Data from Backend ──────────
+async function loadFees() {
+  const summary = await apiCall("/fees/my/summary");
+  const payments = await apiCall("/fees/my");
+
+  if (summary && summary.success && summary.data) {
+    const s = summary.data;
+    const pct = Math.round(s.paidPercentage || 0);
+
+    // Update overview circle
+    document.querySelector(".circle h2").textContent = pct + "%";
+
+    // Update fee amounts
+    const totalEls = document.querySelectorAll(".fees-info .info-item");
+    if (totalEls.length >= 2) {
+      totalEls[0].querySelector("h2").textContent = "₹" + formatAmount(s.totalFees);
+      totalEls[1].querySelector("h2").textContent = "₹" + formatAmount(s.pendingAmount);
+    }
+
+    // Update payment note
+    const note = document.querySelector(".payment-note");
+    if (note) {
+      note.innerHTML = `<i class="fa-solid fa-indian-rupee-sign"></i>
+        You have paid <span>₹${formatAmount(s.paidAmount)}</span> of ₹${formatAmount(s.totalFees)}`;
+    }
+
+    // Update fee detail boxes
+    const detailBoxes = document.querySelectorAll(".detail-box h2");
+    if (detailBoxes.length >= 3) {
+      detailBoxes[0].textContent = "₹" + formatAmount(s.totalFees);
+      detailBoxes[1].textContent = "₹" + formatAmount(s.paidAmount);
+      detailBoxes[2].textContent = "₹" + formatAmount(s.pendingAmount);
+    }
+
+    // Update Pay Now card
+    const payLeft = document.querySelector(".pay-left p");
+    if (payLeft) payLeft.textContent = `You have ₹${formatAmount(s.pendingAmount)} pending.`;
+  }
+
+  if (payments && payments.success && payments.data) {
+    const list = payments.data;
+    const tableSection = document.querySelector(".table-section");
+    if (tableSection && list.length > 0) {
+      tableSection.innerHTML = list.map(p => `
+        <div class="table-row">
+          <span>${p.feeStructure ? p.feeStructure.feeName : "Fee"}</span>
+          <span>₹${formatAmount(p.feeStructure ? p.feeStructure.amount : 0)}</span>
+          <span class="${p.paymentStatus === 'Paid' ? 'paid' : 'pending'}">${p.paymentStatus}</span>
+        </div>
+      `).join("");
+    }
+
+    // Update payment history
+    const historyBox = document.querySelector(".history-box");
+    if (historyBox) {
+      const paidOnly = list.filter(p => p.paymentStatus === "Paid");
+      if (paidOnly.length > 0) {
+        historyBox.innerHTML = paidOnly.map(p => `
+          <div class="history-row">
+            <div>
+              <h4>${formatDate(p.paidOn)}</h4>
+              <p>${p.feeStructure ? p.feeStructure.feeName : "Payment"}</p>
+            </div>
+            <div>
+              <h4>₹${formatAmount(p.amountPaid)}</h4>
+              <p>${p.paymentMethod || "Online"}</p>
+            </div>
+            <span class="paid">Success</span>
+          </div>
+        `).join("");
+      }
+    }
+  }
+}
+
+function formatAmount(amount) {
+  if (!amount) return "0";
+  return Number(amount).toLocaleString("en-IN");
+}
+
+function formatDate(dateStr) {
+  if (!dateStr) return "—";
+  const d = new Date(dateStr);
+  return d.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
+}
+
+loadFees();
+</script>
 </body>
 </html>
