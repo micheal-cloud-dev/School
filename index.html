@@ -59,9 +59,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
             <div>
                 <h4>Welcome back,</h4>
-                <h1>Micheal Edison </h1>
-                <p>Class 12 - A  </p>
-                <p>Student ID: ST1023</p>
+                <h1 class="student-name">Micheal Edison </h1>
+                <p class="student-class">Class 12 - A  </p>
+                <p class="student-id">Student ID: ST1023</p>
             </div>
 
             <div class="date-box">
@@ -275,6 +275,80 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 </div>
   
 
+    <!-- PERFORMANCE -->
+
+    
+<!-- 
+    <div class="performance-grid">
+
+      <div class="small-card">
+
+        <h5>My Attendance</h5>
+
+        <div class="attendance-circle">
+          <h2>92%</h2>
+          <small>Present</small>
+        </div>
+
+      </div>
+
+     <div class="small-card">
+
+        <h5>Academic Performance</h5>
+
+        <div class="chart-placeholder">
+          Performance Chart
+        </div>
+
+      </div> 
+ <div class="small-card quote-card">
+
+        <h5>
+          “Education is the most powerful weapon which you can use to change the world.”
+        </h5>
+
+      </div>
+      <div class="  quote-card">
+
+   
+    <div class="quote-content">
+      <h1>
+        “Education is the most powerful weapon which you can use to change the world.”
+      </h1>
+
+      <p class="author">— Nelson Mandela</p>
+    </div>
+
+  
+    <div class="quote-image">
+      <img src="trophy.png" alt="Trophy">
+    </div>
+
+  </div>
+      </div> -->
+
+<!-- 
+
+      <div class="quote-card">
+
+   Left Content
+    <div class="quote-content">
+      <h1>
+        “Education is the most powerful weapon which you can use to change the world.”
+      </h1>
+
+      <p class="author">— Nelson Mandela</p>
+    </div>
+
+   
+    <div class="quote-image">
+      <img src="trophy.png" alt="Trophy">
+    </div>
+
+  </div>-->
+
+    
+
     <!-- QUICK ACTIONS -->
 
     <div class="quick-grid">
@@ -329,40 +403,46 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
   </div>
 
+<script src="api.js"></script>
 <script>
 
+// ── Auth Check ──────────────────────────
+checkAuth();
+const user = getCurrentUser();
+
+// ── Load Student Data from Backend ──────
+async function loadDashboard() {
+  const data = await apiCall("/student/profile/ST1023");
+  if (data && data.success && data.data) {
+    const s = data.data;
+    document.querySelectorAll(".student-name").forEach(el => el.textContent = s.fullName || "Micheal Edison");
+    document.querySelectorAll(".student-class").forEach(el => el.textContent = `Class ${s.className} - ${s.section}`);
+    document.querySelectorAll(".student-id").forEach(el => el.textContent = `Student ID: ${s.studentId}`);
+  }
+}
+
+loadDashboard();
+
+// ── Attendance Circle Animation ──────────
 const attendanceSection = document.getElementById("attendance");
 const progressCircle = document.getElementById("progressCircle");
 
 let animated = false;
 
 window.addEventListener("scroll", () => {
-
   const sectionTop = attendanceSection.getBoundingClientRect().top;
   const screenHeight = window.innerHeight;
 
   if(sectionTop < screenHeight - 100 && !animated){
-
     animated = true;
-
     let progress = 0;
-
-    const target = 331; // 92% of 360deg
-
+    const target = 331;
     const interval = setInterval(() => {
-
       progress += 4;
-
       progressCircle.style.setProperty("--progress", progress);
-
-      if(progress >= target){
-        clearInterval(interval);
-      }
-
+      if(progress >= target){ clearInterval(interval); }
     }, 10);
-
   }
-
 });
 
 </script>
